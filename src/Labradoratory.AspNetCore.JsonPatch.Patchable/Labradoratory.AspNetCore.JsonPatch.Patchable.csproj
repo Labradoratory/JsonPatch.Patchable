@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Company>Labradoratory</Company>
+    <Authors>Ed Downs</Authors>
+    <Copyright>2019</Copyright>
+    <Description>Extends the Microsoft.AspNetCore.JsonPatch library by adding a PatchableAttribute and JsonPatchDocument.ApplyToIfPatchable method which restricts a JSON patch to only be applied to properties which are assigned the attribute.</Description>
+    <PackageTags>JSON Patch, Microsoft.AspNetCore.JsonPatch</PackageTags>
+    <Deterministic>False</Deterministic>
+    <AssemblyVersion>0.1-beta</AssemblyVersion>
+    <FileVersion>0.1</FileVersion>
+    <Version>0.1-beta</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
