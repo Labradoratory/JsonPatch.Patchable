@@ -51,6 +51,7 @@ steps:
     command: 'pack'
     packagesToPack: '**/*.csproj'
     versioningScheme: 'byBuildNumber'
+    buildProperties: 'build=$(Build.BuildNumber)'
 
 - task: NuGetCommand@2
   inputs:
