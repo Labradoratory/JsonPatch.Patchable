@@ -45,3 +45,16 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
     artifact: '_Labradoratory.JsonPatch.Patchable'
     publishLocation: 'pipeline'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'byBuildNumber'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'Labradoratory Nuget'
