@@ -57,7 +57,7 @@ steps:
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.csproj'
+    packagesToPack: '**/Labradoratory.AspNetCore.JsonPatch.Patchable.csproj'
     versioningScheme: 'byBuildNumber'
     buildProperties: 'build=$(Build.BuildNumber)'
 
