@@ -5,6 +5,8 @@
 
 trigger:
 - master
+- develop
+- feature/*
 
 pool:
   vmImage: 'windows-latest'
@@ -41,12 +43,14 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
 - task: PublishPipelineArtifact@1
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     targetPath: '$(Pipeline.Workspace)'
     artifact: '_Labradoratory.JsonPatch.Patchable'
     publishLocation: 'pipeline'
 
 - task: NuGetCommand@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
@@ -54,6 +58,7 @@ steps:
     buildProperties: 'build=$(Build.BuildNumber)'
 
 - task: NuGetCommand@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
