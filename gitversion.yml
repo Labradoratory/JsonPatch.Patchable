@@ -3,6 +3,8 @@ next-version: 1.0.0
 branches:
   feature:
     tag: alpha
+  develop:
+    tag: beta
   master:
     tag: ''
 ignore:

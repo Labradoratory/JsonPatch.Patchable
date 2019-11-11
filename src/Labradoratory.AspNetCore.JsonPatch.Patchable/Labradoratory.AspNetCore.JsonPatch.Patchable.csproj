@@ -8,7 +8,7 @@
     <Copyright>2019</Copyright>
     <Description>Extends the Microsoft.AspNetCore.JsonPatch library by adding a PatchableAttribute and JsonPatchDocument.ApplyToIfPatchable method which restricts a JSON patch to only be applied to properties which are assigned the attribute.</Description>
     <PackageTags>JSON Patch, Microsoft.AspNetCore.JsonPatch</PackageTags>
-    <PackageVersion>1.0.0-beta</PackageVersion>
+    <PackageVersion>1.0.0.0</PackageVersion>
     <Deterministic>False</Deterministic>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
