@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Company>Labradoratory</Company>
     <Authors>Ed Downs</Authors>
     <Copyright>2019</Copyright>
@@ -15,6 +15,7 @@
     <Version>1.0.0.0</Version>
     <PackageLicenseFile></PackageLicenseFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId />
   </PropertyGroup>
 
   <ItemGroup>
