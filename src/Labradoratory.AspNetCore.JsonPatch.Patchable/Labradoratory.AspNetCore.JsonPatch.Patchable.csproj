@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Authors>Ed Downs</Authors>
+    <Company>Labradoratory</Company>
+    <Description>Extends the Microsoft.AspNetCore.JsonPatch library by adding a PatchableAttribute and JsonPatchDocument.ApplyToIfPatchable method which restricts a JSON patch to only be applied to properties which are assigned the attribute.</Description>
+    <Copyright>2019</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Labradoratory/JsonPatch.Patchable</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>JSON Patch</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

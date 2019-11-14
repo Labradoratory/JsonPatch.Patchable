@@ -49,14 +49,7 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    command: 'pack'
-    packagesToPack: '**/*.nuspec'
-    versioningScheme: 'off'
-    includeReferencedProjects: true
-
-- task: NuGetCommand@2
-  inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '**/*.nupkg;!**/*.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'Labradoratory Nuget'
