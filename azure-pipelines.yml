@@ -26,6 +26,7 @@ steps:
 - task: GitVersion@5
   inputs:
     runtime: 'core'
+    preferBundledVersion: false
 
 - task: VSBuild@1
   inputs:
