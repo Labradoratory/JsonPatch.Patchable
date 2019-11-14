@@ -25,5 +25,26 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable
             var adapter = new PatchableObjectAdapter(new DefaultContractResolver(), logErrorAction);
             document.ApplyTo(objectToApplyTo, adapter, logErrorAction);
         }
+
+        /// <summary>
+        /// Applies the <see cref="JsonPatchDocument"/> to the provided object, only allowing writes
+        /// to properties that are marked with the <see cref="PatchableAttribute"/>.
+        /// </summary>
+        /// <param name="document">The patch to apply.</param>
+        /// <param name="objectToApplyTo">The object to apply the patch to.</param>
+        /// <param name="logErrorAction">An action to handle logging any errors.</param>
+        public static void ApplyToIfPatchable<T>(
+            this JsonPatchDocument<T> document,
+            T objectToApplyTo,
+            Action<JsonPatchError> logErrorAction = null)
+            where T : class
+        {
+            // If there is no provided error logging, just use an empty method.
+            if (logErrorAction == null)
+                logErrorAction = _ => { };
+
+            var adapter = new PatchableObjectAdapter(new DefaultContractResolver(), logErrorAction);
+            document.ApplyTo(objectToApplyTo, adapter, logErrorAction);
+        }
     }
 }
