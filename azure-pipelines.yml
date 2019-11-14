@@ -55,9 +55,8 @@ steps:
     includeReferencedProjects: true
 
 - task: NuGetCommand@2
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: 'push'
-    packagesToPush: '**/*.nupkg;!$**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'Labradoratory Nuget'
