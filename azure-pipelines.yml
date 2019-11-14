@@ -47,17 +47,10 @@ steps:
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
-- task: PublishPipelineArtifact@1
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-  inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: '_Labradoratory.JsonPatch.Patchable'
-    publishLocation: 'pipeline'
-
 - task: NuGetCommand@2
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '**/*.nupkg;!$**/*.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'Labradoratory Nuget'
