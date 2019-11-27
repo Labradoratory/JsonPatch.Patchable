@@ -37,6 +37,13 @@ steps:
     clean: true
     msbuildArchitecture: 'x86'
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**/*.nupkg;!**/*.symbols.nupkg'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
@@ -47,3 +54,9 @@ steps:
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: '_Labradoratory.JsonPatch.Patchable'
+    publishLocation: 'Container'
