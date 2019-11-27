@@ -50,8 +50,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)'
-    Contents: '**/*.nupkg;**/*.symbols.nupkg'
+    Contents: '**\*.nupkg;**\*.symbols.nupkg'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
