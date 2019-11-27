@@ -39,7 +39,6 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
     Contents: '**/*.nupkg;!**/*.symbols.nupkg'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
