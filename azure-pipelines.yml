@@ -37,12 +37,6 @@ steps:
     clean: true
     msbuildArchitecture: 'x86'
 
-- task: CopyFiles@2
-  inputs:
-    Contents: '**/*.nupkg;!**/*.symbols.nupkg'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    CleanTargetFolder: true
-
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
@@ -53,6 +47,12 @@ steps:
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)'
+    Contents: '**/*.nupkg;**/*.symbols.nupkg'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
