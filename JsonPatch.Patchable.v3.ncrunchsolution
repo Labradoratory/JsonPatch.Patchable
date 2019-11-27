@@ -1,0 +1,13 @@
+﻿<SolutionConfiguration>
+  <Settings>
+    <AllowParallelTestExecution>True</AllowParallelTestExecution>
+    <MetricsExclusionList>
+      <Value>test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test.csproj</Value>
+      <Value>JsonPatchDocumentExtensions_Tests.cs:test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test.csproj</Value>
+      <Value>PatchableObjectAdapter_Tests.cs:test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test.csproj</Value>
+      <Value>PatchableObjectAdapterFactory_Tests.cs:test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test.csproj</Value>
+      <Value>PatchablePocoAdapter_Tests.cs:test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test\Labradoratory.AspNetCore.JsonPatch.Patchable.Test.csproj</Value>
+    </MetricsExclusionList>
+    <SolutionConfigured>True</SolutionConfigured>
+  </Settings>
+</SolutionConfiguration>

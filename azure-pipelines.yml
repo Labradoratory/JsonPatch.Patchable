@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- release/*
 - develop
 - feature/*
 
@@ -46,10 +47,3 @@ steps:
       !**\*TestAdapter.dll
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
-
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '**/*.nupkg;!**/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'Labradoratory Nuget'

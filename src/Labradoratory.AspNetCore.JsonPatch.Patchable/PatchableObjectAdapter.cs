@@ -12,6 +12,11 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable
     /// <seealso cref="Microsoft.AspNetCore.JsonPatch.Adapters.ObjectAdapter" />
     public class PatchableObjectAdapter : ObjectAdapter
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PatchableObjectAdapter"/> class.
+        /// </summary>
+        /// <param name="contractResolver">The <see cref="T:Newtonsoft.Json.Serialization.IContractResolver" />.</param>
+        /// <param name="logErrorAction">The <see cref="T:System.Action" /> for logging <see cref="T:Microsoft.AspNetCore.JsonPatch.JsonPatchError" />.</param>
         public PatchableObjectAdapter(IContractResolver contractResolver, Action<JsonPatchError> logErrorAction) 
             : base(contractResolver, logErrorAction, new PatchableObjectAdapterFactory())
         {}
