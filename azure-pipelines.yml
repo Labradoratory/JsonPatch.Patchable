@@ -20,7 +20,7 @@ variables:
   isMaster: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   isHotfix: startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
   isRelease: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
-  pushArtifacts: or($(isMaster), $(isHotfix), $(isRelease))
+  publishArtifacts: or($(isMaster), $(isHotfix), $(isRelease))
 
 steps:
 
@@ -28,7 +28,7 @@ steps:
     Write-Host "isMaster: $(isMaster)"
     Write-Host "isHotfix: $(isHotfix)"
     Write-Host "isRelease: $(isRelease)"
-    Write-Host "pushArtifacts: $(pushArtifacts)"
+    Write-Host "publishArtifacts: $(publishArtifacts)"
 
 - task: NuGetToolInstaller@1
 
@@ -61,7 +61,7 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
 - task: CopyFiles@2
-  condition: and(succeeded(), $(pushArtifacts))
+  condition: and(succeeded(), variables['publishArtifacts'])
   inputs:
     Contents: |
      **\*.nupkg
@@ -69,7 +69,7 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)'    
 
 - task: PublishBuildArtifacts@1
-  condition: and(succeeded(), $(pushArtifacts))
+  condition: and(succeeded(), variables['publishArtifacts'])
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: '_Labradoratory.JsonPatch.Patchable'
