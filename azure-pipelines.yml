@@ -61,7 +61,7 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
 - task: CopyFiles@2
-  condition: $(pushArtifacts)
+  condition: and(succeeded(), $(pushArtifacts))
   inputs:
     Contents: |
      **\*.nupkg
@@ -69,7 +69,7 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)'    
 
 - task: PublishBuildArtifacts@1
-  condition: $(pushArtifacts)
+  condition: and(succeeded(), $(pushArtifacts))
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: '_Labradoratory.JsonPatch.Patchable'
