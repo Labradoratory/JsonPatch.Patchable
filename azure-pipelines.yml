@@ -17,10 +17,10 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  isMaster: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-  isHotfix: startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
-  isRelease: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
-  publishArtifacts: or($(isMaster), $(isHotfix), $(isRelease))
+  isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  isHotfix: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')]
+  isRelease: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')]
+  publishArtifacts: $[or($(isMaster), $(isHotfix), $(isRelease))]
 
 steps:
 
