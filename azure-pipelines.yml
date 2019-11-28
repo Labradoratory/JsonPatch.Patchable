@@ -23,6 +23,13 @@ variables:
   pushArtifacts: or($(isMaster), $(isHotfix), $(isRelease))
 
 steps:
+
+- powershell: |
+    Write-Host "isMaster: $(isMaster)"
+    Write-Host "isHotfix: $(isHotfix)"
+    Write-Host "isRelease: $(isRelease)"
+    Write-Host "pushArtifacts: $(pushArtifacts)"
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
