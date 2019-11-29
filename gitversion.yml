@@ -1,1 +1,2 @@
 mode: Mainline
+continuous-delivery-fallback-tag: cvfail
