@@ -5,9 +5,10 @@
 
 trigger:
 - master
+- develop
 - release/*
 - hotfix/*
-- develop
+- bugfix/*
 - feature/*
 
 pool:
@@ -30,35 +31,38 @@ steps:
     Write-Host "isRelease: $(isRelease)"
     Write-Host "publishArtifacts: $(publishArtifacts)"
 
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
 - task: GitVersion@5
+  displayName: 'GitVersion'
   inputs:
-    runtime: 'core'
+    runtime: core
+    updateAssemblyInfo: true
     preferBundledVersion: false
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    clean: true
-    msbuildArchitecture: 'x86'
+- script: echo %Action%%BuildVersion%
+  displayName: 'Set build version'
+  env:
+    Action: '##vso[build.updatebuildnumber]'
+    BuildVersion: $(GitVersion.SemVer)
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*.Test.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
+    command: 'restore'
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build $(buildConfiguration)'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    projects: '**/*Test/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: CopyFiles@2
   condition: and(succeeded(), variables['publishArtifacts'])
