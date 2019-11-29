@@ -142,6 +142,140 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable.Test
             Assert.Equal(expectedError, error.ErrorMessage);
         }
 
+        [Fact]
+        public void ApplyToIfPatchable_T_Property_AddWhenPatchableAttribute()
+        {
+            var expectedValue = "Value Patched";
+            var target = new TestTarget()
+            {
+                StringValueP = "Patchable Value"
+            };
+
+            var patch = new JsonPatchDocument<TestTarget>(
+                new List<Operation<TestTarget>>
+                {
+                    new Operation<TestTarget>("add", "StringValueP", null, expectedValue)
+                },
+                new DefaultContractResolver());
+
+            patch.ApplyToIfPatchable(target);
+            Assert.Equal(expectedValue, target.StringValueP);
+        }
+
+        [Fact]
+        public void ApplyToIfPatchable_T_Property_NoAddWhenNoPatchableAttribute()
+        {
+            var expectedError = "The property at path 'StringValueNP' could not be updated.";
+            var expectedValue = "Not Patchable Value";
+            var target = new TestTarget()
+            {
+                StringValueNP = expectedValue
+            };
+
+            var patch = new JsonPatchDocument<TestTarget>(
+                new List<Operation<TestTarget>>
+                {
+                    new Operation<TestTarget>("add", "StringValueNP", null, "Value Patched")
+                },
+                new DefaultContractResolver());
+
+            var errors = new List<JsonPatchError>();
+            patch.ApplyToIfPatchable(target, error => errors.Add(error));
+            Assert.Equal(expectedValue, target.StringValueNP);
+            Assert.Single(errors);
+            var error = errors[0];
+            Assert.Equal(target, error.AffectedObject);
+            Assert.Equal(patch.Operations[0], error.Operation);
+            Assert.Equal(expectedError, error.ErrorMessage);
+        }
+
+        [Fact]
+        public void ApplyToIfPatchable_T_Collection_AddWhenPatchableAttribute()
+        {
+            var expectedValue = "Value Patched";
+            var target = new TestTarget();
+
+            var patch = new JsonPatchDocument<TestTarget>(
+                new List<Operation<TestTarget>>
+                {
+                    new Operation<TestTarget>("add", "StringCollectionP/-", null, expectedValue)
+                },
+                new DefaultContractResolver());
+
+            patch.ApplyToIfPatchable(target);
+            Assert.Single(target.StringCollectionP);
+            Assert.Equal(expectedValue, target.StringCollectionP[0]);
+        }
+
+        [Fact]
+        public void ApplyToIfPatchable_T_Collection_NoAddWhenNoPatchableAttribute()
+        {
+            var expectedError = "The property at path 'StringCollectionNP' could not be updated.";
+            var target = new TestTarget();
+
+            var patch = new JsonPatchDocument<TestTarget>(
+                new List<Operation<TestTarget>>
+                {
+                    new Operation<TestTarget>("add", "StringCollectionNP/-", null, "Value Patched")
+                },
+                new DefaultContractResolver());
+
+            var errors = new List<JsonPatchError>();
+            patch.ApplyToIfPatchable(target, error => errors.Add(error));
+            Assert.Empty(target.StringCollectionNP);
+            Assert.Single(errors);
+            var error = errors[0];
+            Assert.Equal(target, error.AffectedObject);
+            Assert.Equal(patch.Operations[0], error.Operation);
+            Assert.Equal(expectedError, error.ErrorMessage);
+        }
+
+        [Fact]
+        public void ApplyToIfPatchable_T_Property_RemoveWhenPatchableAttribute()
+        {
+            ;
+            var target = new TestTarget()
+            {
+                StringValueP = "Patchable Value"
+            };
+
+            var patch = new JsonPatchDocument<TestTarget>(
+                new List<Operation<TestTarget>>
+                {
+                    new Operation<TestTarget>("remove", "StringValueP", null)
+                },
+                new DefaultContractResolver());
+
+            patch.ApplyToIfPatchable(target);
+            Assert.Null(target.StringValueP);
+        }
+
+        [Fact]
+        public void ApplyToIfPatchable_T_Property_NoRemoveWhenNoPatchableAttribute()
+        {
+            var expectedError = "The property at path 'StringValueNP' could not be updated.";
+            var target = new TestTarget()
+            {
+                StringValueNP = "Not Patched Value"
+            };
+
+            var patch = new JsonPatchDocument<TestTarget>(
+                new List<Operation<TestTarget>>
+                {
+                    new Operation<TestTarget>("remove", "StringValueNP", null)
+                },
+                new DefaultContractResolver());
+
+            var errors = new List<JsonPatchError>();
+            patch.ApplyToIfPatchable(target, error => errors.Add(error));
+            Assert.NotNull(target.StringValueNP);
+            Assert.Single(errors);
+            var error = errors[0];
+            Assert.Equal(target, error.AffectedObject);
+            Assert.Equal(patch.Operations[0], error.Operation);
+            Assert.Equal(expectedError, error.ErrorMessage);
+        }
+
         private class TestTarget
         {
             [Patchable]

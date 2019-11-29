@@ -1,0 +1,10 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <CustomBuildProperties>
+      <Value>DisableGitVersionTask = true</Value>
+    </CustomBuildProperties>
+    <IgnoredTests>
+      <AllTestsSelector />
+    </IgnoredTests>
+  </Settings>
+</ProjectConfiguration>

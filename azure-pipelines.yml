@@ -5,6 +5,11 @@
 
 trigger:
 - master
+- develop
+- release/*
+- hotfix/*
+- bugfix/*
+- feature/*
 
 pool:
   vmImage: 'windows-latest'
@@ -13,49 +18,63 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  isHotfix: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')]
+  isRelease: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')]
+  publishArtifacts: $[or(variables['isMaster'], variables['isHotfix'], variables['isRelease'])]
 
 steps:
-- task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+- powershell: |
+    Write-Host "isMaster: $(isMaster)"
+    Write-Host "isHotfix: $(isHotfix)"
+    Write-Host "isRelease: $(isRelease)"
+    Write-Host "publishArtifacts: $(publishArtifacts)"
 
-- task: VSBuild@1
+- task: GitVersion@5
+  displayName: 'GitVersion'
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    clean: true
-    msbuildArchitecture: 'x86'
+    runtime: core
+    updateAssemblyInfo: true
+    preferBundledVersion: false
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*.Test.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
+- script: echo %Action%%BuildVersion%
+  displayName: 'Set build version'
+  env:
+    Action: '##vso[build.updatebuildnumber]'
+    BuildVersion: $(GitVersion.SemVer)
 
-- task: PublishPipelineArtifact@1
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
   inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: '_Labradoratory.JsonPatch.Patchable'
-    publishLocation: 'pipeline'
+    command: 'restore'
+    projects: '**/*.csproj'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build $(buildConfiguration)'
   inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    versioningScheme: 'byBuildNumber'
-    buildProperties: 'build=$(Build.BuildNumber)'
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test $(buildConfiguration)'
   inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'Labradoratory Nuget'
+    command: 'test'
+    projects: '**/*Test/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: CopyFiles@2
+  condition: and(succeeded(), variables['publishArtifacts'])
+  inputs:
+    Contents: |
+     **\*.nupkg
+     **\*.symbols.nupkg
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'    
+
+- task: PublishBuildArtifacts@1
+  condition: and(succeeded(), variables['publishArtifacts'])
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: '_Labradoratory.JsonPatch.Patchable'
+    publishLocation: 'Container'

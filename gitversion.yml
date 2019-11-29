@@ -1,0 +1,5 @@
+branches:
+  release:
+    mode: ContinuousDeployment
+ignore:
+  sha: []

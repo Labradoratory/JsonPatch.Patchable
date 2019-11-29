@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Labradoratory.AspNetCore.JsonPatch.Patchable</name>
+    </assembly>
+    <members>
+        <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.JsonPatchDocumentExtensions.ApplyToIfPatchable(Microsoft.AspNetCore.JsonPatch.JsonPatchDocument,System.Object,System.Action{Microsoft.AspNetCore.JsonPatch.JsonPatchError})">
+            <summary>
+            Applies the <see cref="T:Microsoft.AspNetCore.JsonPatch.JsonPatchDocument"/> to the provided object, only allowing writes
+            to properties that are marked with the <see cref="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableAttribute"/>.
+            </summary>
+            <param name="document">The patch to apply.</param>
+            <param name="objectToApplyTo">The object to apply the patch to.</param>
+            <param name="logErrorAction">An action to handle logging any errors.</param>
+        </member>
+        <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.JsonPatchDocumentExtensions.ApplyToIfPatchable``1(Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{``0},``0,System.Action{Microsoft.AspNetCore.JsonPatch.JsonPatchError})">
+            <summary>
+            Applies the <see cref="T:Microsoft.AspNetCore.JsonPatch.JsonPatchDocument"/> to the provided object, only allowing writes
+            to properties that are marked with the <see cref="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableAttribute"/>.
+            </summary>
+            <param name="document">The patch to apply.</param>
+            <param name="objectToApplyTo">The object to apply the patch to.</param>
+            <param name="logErrorAction">An action to handle logging any errors.</param>
+        </member>
+        <member name="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableAttribute">
+            <summary>
+            Marks a property as being patchable.
+            </summary>
+            <remarks>
+            
+            </remarks>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableObjectAdapter">
+            <summary>
+            An implementation of <see cref="T:Microsoft.AspNetCore.JsonPatch.Adapters.IObjectAdapter"/> that looks for <see cref="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableAttribute"/>
+            before allowing a patch operation to write to a property.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.JsonPatch.Adapters.ObjectAdapter" />
+        </member>
+        <member name="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableObjectAdapterFactory">
+            <summary>
+            An implementation of <see cref="T:Microsoft.AspNetCore.JsonPatch.Adapters.AdapterFactory"/> replaces the standard <see cref="T:Microsoft.AspNetCore.JsonPatch.Internal.PocoAdapter"/>
+            with a <see cref="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchablePocoAdapter"/>.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.JsonPatch.Adapters.AdapterFactory" />
+        </member>
+        <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableObjectAdapterFactory.Create(System.Object,Newtonsoft.Json.Serialization.IContractResolver)">
+            <inheritdoc />
+        </member>
+        <member name="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchablePocoAdapter">
+            <summary>
+            An implementation of <see cref="T:Microsoft.AspNetCore.JsonPatch.Internal.PocoAdapter"/> that looks for <see cref="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableAttribute"/>
+            to determine if a property is writable.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.JsonPatch.Internal.PocoAdapter" />
+        </member>
+    </members>
+</doc>
