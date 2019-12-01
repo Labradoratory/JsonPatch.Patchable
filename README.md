@@ -18,7 +18,7 @@ public class MyModel
 }
 ```
 
-In order to take advantage of the `PatchableAttribute`, you must use the specialized `ApplyIfPatchable` extension method included in this library.
+In order to take advantage of the `PatchableAttribute`, you must use the specialized `ApplyToIfPatchable` extension method included in this library.
 
 ```csharp
 [HttpPatch, Route("{id}")]
