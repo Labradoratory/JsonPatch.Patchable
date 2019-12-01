@@ -1,3 +1,5 @@
+[![Build Status](https://labradoratory.visualstudio.com/LabradoratoryGitHub/_apis/build/status/Labradoratory.JsonPatch.Patchable?branchName=master)](https://labradoratory.visualstudio.com/LabradoratoryGitHub/_build/latest?definitionId=1&branchName=master)
+
 # JsonPatch.Patchable
 Extends the Microsoft.AspNetCore.JsonPatch library by adding a PatchableAttribute and JsonPatchDocument.ApplyToIfPatchable method which restricts a JSON patch to only be applied to properties which are assigned the attribute.
 
