@@ -4,12 +4,22 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
-- develop
-- release/*
-- hotfix/*
-- bugfix/*
-- feature/*
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - hotfix/*
+      - bugfix/*
+      - feature/*
+  paths:
+    exclude:
+      - azure-pipelines.yml
+      - CODE_OF_CONDUCT.md
+      - gitversion.yml
+      - LICENSE
+      - README.md
+
 
 pool:
   vmImage: 'windows-latest'
