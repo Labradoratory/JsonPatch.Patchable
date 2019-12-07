@@ -38,6 +38,13 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.JsonPatch.Adapters.ObjectAdapter" />
         </member>
+        <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableObjectAdapter.#ctor(Newtonsoft.Json.Serialization.IContractResolver,System.Action{Microsoft.AspNetCore.JsonPatch.JsonPatchError})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableObjectAdapter"/> class.
+            </summary>
+            <param name="contractResolver">The <see cref="T:Newtonsoft.Json.Serialization.IContractResolver" />.</param>
+            <param name="logErrorAction">The <see cref="T:System.Action" /> for logging <see cref="T:Microsoft.AspNetCore.JsonPatch.JsonPatchError" />.</param>
+        </member>
         <member name="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableObjectAdapterFactory">
             <summary>
             An implementation of <see cref="T:Microsoft.AspNetCore.JsonPatch.Adapters.AdapterFactory"/> replaces the standard <see cref="T:Microsoft.AspNetCore.JsonPatch.Internal.PocoAdapter"/>
