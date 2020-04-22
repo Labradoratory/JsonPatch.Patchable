@@ -12,7 +12,7 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable
     /// </remarks>
     /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
-    public class PatchableChildrenAttribute : Attribute
+    public class PatchableCollectionAttribute : Attribute
     {
     }
 }

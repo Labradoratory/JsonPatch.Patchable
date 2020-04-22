@@ -19,8 +19,8 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable
             if (!base.TryTraverse(target, segment, contractResolver, out value, out errorMessage))
                 return false;
 
-            // If the value is a list, we need to check that the property has a PatchableAttribute.
-            if (value.GetType().IsClass && !(value is string))
+            // If the value is a list or dictionary, we need to check that the collection can be patched.
+            if (value is IList || value is IDictionary)
             {
                 // If the property is not patchable, we'll just do a fake add so we can generate the correct message.
                 // Using the embeded resources file is a PITA and not much more efficient.
@@ -32,8 +32,7 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable
         }
 
         /// <summary>
-        /// Determines whether the children of the object, at the property identified by the segment name,
-        /// can be patched.
+        /// Determines whether the property represented by the segment can have its children patched.
         /// </summary>
         /// <param name="target">The target.</param>
         /// <param name="segment">The segment.</param>
@@ -50,7 +49,7 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable
                     .FirstOrDefault(p => string.Equals(p.PropertyName, segment, StringComparison.OrdinalIgnoreCase));
 
                 // Property must have PatchableAttribute or patch operation cannot be applied.
-                if (pocoProperty.AttributeProvider.GetAttributes(false).Any(a => a is PatchableAttribute || a is PatchableChildrenAttribute))
+                if (pocoProperty.AttributeProvider.GetAttributes(false).Any(a => a is PatchableAttribute || a is PatchableCollectionAttribute))
                     return true;
             }
 
