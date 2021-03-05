@@ -14,6 +14,7 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable
     /// <seealso cref="PocoAdapter" />
     public class PatchablePocoAdapter : PocoAdapter
     {
+        /// <inheritdoc />
         public override bool TryTraverse(object target, string segment, IContractResolver contractResolver, out object value, out string errorMessage)
         {
             if (!base.TryTraverse(target, segment, contractResolver, out value, out errorMessage))
@@ -56,6 +57,7 @@ namespace Labradoratory.AspNetCore.JsonPatch.Patchable
             return false;
         }
 
+        /// <inheritdoc />
         protected override bool TryGetJsonProperty(object target, IContractResolver contractResolver, string segment, out JsonProperty jsonProperty)
         {
             if (contractResolver.ResolveContract(target.GetType()) is JsonObjectContract jsonObjectContract)

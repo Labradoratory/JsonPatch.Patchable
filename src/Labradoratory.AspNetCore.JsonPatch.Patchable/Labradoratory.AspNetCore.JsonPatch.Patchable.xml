@@ -26,8 +26,16 @@
             <summary>
             Marks a property as being patchable.
             </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="T:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchableCollectionAttribute">
+            <summary>
+            Marks a property as having children that are patchable, while not itself being patchable.
+            </summary>
             <remarks>
-            
+            This attribute can be used to allow the contents of a collection or the child properties of
+            an object to be patched, while blocking the actual object from being replaced or deleted as
+            part of a patch.
             </remarks>
             <seealso cref="T:System.Attribute" />
         </member>
@@ -61,6 +69,17 @@
             to determine if a property is writable.
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.JsonPatch.Internal.PocoAdapter" />
+        </member>
+        <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchablePocoAdapter.CanPatchChildren(System.Object,System.String,Newtonsoft.Json.Serialization.IContractResolver)">
+            <summary>
+            Determines whether the property represented by the segment can have its children patched.
+            </summary>
+            <param name="target">The target.</param>
+            <param name="segment">The segment.</param>
+            <param name="contractResolver">The contract resolver.</param>
+            <returns>
+              <c>true</c> if [is patchable list] [the specified target]; otherwise, <c>false</c>.
+            </returns>
         </member>
     </members>
 </doc>
