@@ -41,6 +41,11 @@ steps:
     Write-Host "isRelease: $(isRelease)"
     Write-Host "publishArtifacts: $(publishArtifacts)"
 
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    useGlobalJson: true
+
 - task: GitVersion@5
   displayName: 'GitVersion'
   inputs:
