@@ -4,6 +4,11 @@
         <name>Labradoratory.AspNetCore.JsonPatch.Patchable</name>
     </assembly>
     <members>
+        <member name="T:Labradoratory.AspNetCore.JsonPatch.Patchable.JsonPatchDocumentExtensions">
+            <summary>
+            Methods to make working with <see cref="T:Microsoft.AspNetCore.JsonPatch.JsonPatchDocument"/> a little easier.
+            </summary>
+        </member>
         <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.JsonPatchDocumentExtensions.ApplyToIfPatchable(Microsoft.AspNetCore.JsonPatch.JsonPatchDocument,System.Object,System.Action{Microsoft.AspNetCore.JsonPatch.JsonPatchError})">
             <summary>
             Applies the <see cref="T:Microsoft.AspNetCore.JsonPatch.JsonPatchDocument"/> to the provided object, only allowing writes
@@ -70,6 +75,9 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.JsonPatch.Internal.PocoAdapter" />
         </member>
+        <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchablePocoAdapter.TryTraverse(System.Object,System.String,Newtonsoft.Json.Serialization.IContractResolver,System.Object@,System.String@)">
+            <inheritdoc />
+        </member>
         <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchablePocoAdapter.CanPatchChildren(System.Object,System.String,Newtonsoft.Json.Serialization.IContractResolver)">
             <summary>
             Determines whether the property represented by the segment can have its children patched.
@@ -80,6 +88,9 @@
             <returns>
               <c>true</c> if [is patchable list] [the specified target]; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="M:Labradoratory.AspNetCore.JsonPatch.Patchable.PatchablePocoAdapter.TryGetJsonProperty(System.Object,Newtonsoft.Json.Serialization.IContractResolver,System.String,Newtonsoft.Json.Serialization.JsonProperty@)">
+            <inheritdoc />
         </member>
     </members>
 </doc>
