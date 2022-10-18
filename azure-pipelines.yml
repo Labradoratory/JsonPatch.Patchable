@@ -81,25 +81,20 @@ steps:
     projects: '**/*Test/*.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
 
-- script: |
-    dotnet tool install -g dotnet-reportgenerator-globaltool
-    reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
-  displayName: Create Code coverage report
-
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage'
   inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml'
 
-- task: CopyFiles@2
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet pack $(buildConfiguration)'
   condition: and(succeeded(), variables['publishArtifacts'])
   inputs:
-    Contents: |
-     **\*.nupkg
-     **\*.symbols.nupkg
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'    
+    command: 'pack'
+    packagesToPack: '**/*.csproj;!**/*.Test.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'GitVersion.SemVer'
 
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(), variables['publishArtifacts'])
