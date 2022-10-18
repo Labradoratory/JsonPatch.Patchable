@@ -48,6 +48,8 @@ steps:
 
 - task: GitVersion@5
   displayName: 'GitVersion'
+  env:
+    DOTNET_ROLL_FORWARD: Major
   inputs:
     runtime: core
     updateAssemblyInfo: true
