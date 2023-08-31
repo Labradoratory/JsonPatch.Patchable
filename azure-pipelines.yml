@@ -49,7 +49,7 @@ steps:
 - task: GitVersion@5
   displayName: 'GitVersion'
   inputs:
-    runtime: core
+    runtime: full
     updateAssemblyInfo: true
     preferBundledVersion: false
 
