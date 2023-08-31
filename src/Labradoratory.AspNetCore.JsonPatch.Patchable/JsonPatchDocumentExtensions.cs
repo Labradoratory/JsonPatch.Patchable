@@ -4,6 +4,9 @@ using Newtonsoft.Json.Serialization;
 
 namespace Labradoratory.AspNetCore.JsonPatch.Patchable
 {
+    /// <summary>
+    /// Methods to make working with <see cref="JsonPatchDocument"/> a little easier.
+    /// </summary>
     public static class JsonPatchDocumentExtensions
     {
         /// <summary>
