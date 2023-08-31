@@ -44,7 +44,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    useGlobalJson: true
+    version: '3.1.x'
 
 - task: GitVersion@5
   displayName: 'GitVersion'
