@@ -51,7 +51,7 @@ steps:
   env:
     DOTNET_ROLL_FORWARD: Major
   inputs:
-    runtime: core
+    runtime: full
     updateAssemblyInfo: true
     preferBundledVersion: false
 
